@@ -1,5 +1,6 @@
 import React from 'react'
 
+//functional compononent that renders the navbar
 function LanguagesNav ({ selected, onUpdateLanguage}) {
     const languages =['All', 'Javascript', 'Ruby', 'Java', 'CSS', 'Python'];
         
@@ -9,8 +10,8 @@ function LanguagesNav ({ selected, onUpdateLanguage}) {
                 return(
                     <li key = {lang}>
                         <button 
-                            className= 'btn-clear nav-link'
-                            style = {lang === selected 
+                            className= 'btn-clear nav-link' 
+                            style = {lang === selected //selected lang shows coral
                                 ? {color: 'coral'}
                                 : {color: 'black'}}
                             onClick = {() => onUpdateLanguage(lang)}
@@ -28,6 +29,7 @@ export default class Popular extends React.Component {
     constructor(props){
         super(props);
 
+        //store the current language
         this.state = {
             selectedLanguage: 'All'
         };
@@ -35,6 +37,7 @@ export default class Popular extends React.Component {
         this.navLanguageHandleClick = this.navLanguageHandleClick.bind(this);
     }
 
+    //updates the current language state
     navLanguageHandleClick(newLanguage) {
         this.setState({
             selectedLanguage: newLanguage
@@ -46,7 +49,7 @@ export default class Popular extends React.Component {
 
         return (
             <React.Fragment>
-                <LanguagesNav
+                <LanguagesNav //passes selected language and onClick functions to fnc component
                     selected = {selectedLanguage}
                     onUpdateLanguage = {this.navLanguageHandleClick}
                 />
