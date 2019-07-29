@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { fetchPopularRepos } from '../utils/api'
 
 //functional compononent that renders the navbar
 function LanguagesNav ({ selected, onUpdateLanguage}) {
@@ -37,21 +38,46 @@ export default class Popular extends React.Component {
 
         //store the current language
         this.state = {
-            selectedLanguage: 'All'
+            selectedLanguage: 'All',
+            repos: null,
+            error: null,
         };
 
         this.navLanguageHandleClick = this.navLanguageHandleClick.bind(this);
+        this.isLoading = this.isLoading.bind(this);
+    }
+
+    componentDidMount() {
+        this.navLanguageHandleClick(this.state.selectedLanguage);
     }
 
     //updates the current language state
     navLanguageHandleClick(newLanguage) {
         this.setState({
-            selectedLanguage: newLanguage
+            selectedLanguage: newLanguage,
+            error: null,
+            repos: null,
         });
+
+        fetchPopularRepos(newLanguage)
+            .then((repos) => this.setState({
+                repos,
+                error: null
+            }))
+            .catch(() => {
+                console.warn("Error fetching repos: ", error);
+
+                this.setState({
+                    error: 'There was an error fetching the repositories.'
+                })
+            })
     }
 
+    isLoading() {
+        return this.state.repos === null && this.state.error === null
+    }    
     render() {
-        const { selectedLanguage } = this.state;
+        const { selectedLanguage, repos, error } = this.state;
 
         return (
             <React.Fragment>
@@ -59,6 +85,10 @@ export default class Popular extends React.Component {
                     selected = {selectedLanguage}
                     onUpdateLanguage = {this.navLanguageHandleClick}
                 />
+
+                {this.isLoading() && <p>LOADING</p>}
+                {error && <p>{error}</p>}
+                {repos && <pre>{JSON.stringify(repos, null, 2)}</pre>}
             </React.Fragment>
         )
     }
