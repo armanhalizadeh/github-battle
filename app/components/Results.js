@@ -3,6 +3,7 @@ import { battle } from '../utils/api'
 import {FaCompass, FaBriefcase, FaUsers, FaUserFriends, FaCode, FaUser} from 'react-icons/fa'
 import Card from './Card'
 import PropTypes from 'prop-types'
+import Loading from './Loading'
 
 //functional component that createst icons for results cards
 function ProfileList({profile}) {
@@ -50,8 +51,6 @@ export default class Results extends React.Component {
             error: null,
             loading: true,
         }
-
-        this.handleReset = this.handleReset.bind(this)
     }
     
     componentDidMount() {
