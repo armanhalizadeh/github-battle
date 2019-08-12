@@ -118,37 +118,51 @@ PlayerPreview.propTypes = {
 }
 
 export default class Battle extends React.Component {
-constructor(props) {
-    super(props)
+    
+    constructor(props) {
+        super(props)
 
-    this.state = {
-        playerOne: null,
-        playerTwo: null,
-        battle: false,
+        this.state = {
+            playerOne: null,
+            playerTwo: null,
+            battle: false,
+        }
+
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleReset = this.handleReset.bind(this);
+        this.resetBattle = this.resetBattle.bind(this);
     }
 
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleReset = this.handleReset.bind(this);
-}
+    handleSubmit(id, player) {
+        this.setState({
+            [id]: player,
+        })
+    }
 
-handleSubmit(id, player) {
-    this.setState({
-        [id]: player,
-    })
-}
+    handleReset(id) {
+        this.setState({
+            [id]: null,
+        })
+    }
 
-handleReset(id) {
-    this.setState({
-        [id]: null,
-    })
-}
+    resetBattle() {
+        this.setState({
+            playerOne: null,
+            playerTwo: null,
+            battle: false,
+        })
+    }
 
     render() {
         const {playerOne, playerTwo, battle} = this.state;
 
         if (battle === true) {
             return (
-                <Results playerOne={playerOne} playerTwo = {playerTwo} />
+                <Results 
+                    playerOne={playerOne} 
+                    playerTwo = {playerTwo} 
+                    resetBattle = {() => this.resetBattle()}
+                />
             )
         }
 
