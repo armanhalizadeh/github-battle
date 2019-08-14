@@ -10,13 +10,33 @@ import Battle from './components/Battle'
 //  UI
 
 class App extends React.Component {
-    
+    constructor (props) {
+        super(props)
+
+        this.state = {
+            battle: true,
+        }
+
+        this.handleClick = this.handleClick.bind(this);
+    }
+
+    handleClick() {
+        this.setState(({battle}) => ({
+            battle: !battle,
+        }))
+    }
+
     //returns description of what the UI will look like
     render() {
+        const {battle} = this.state;
+
         return (
-            <div className = 'container'> 
-                <Battle />
-            </div>
+            <React.Fragment>
+                <button className = "btn btn-clear" onClick = {this.handleClick}>Switch</button>
+                <div className = 'container'> 
+                    {battle === true ?<Battle /> :<Popular />}
+                </div>
+            </React.Fragment>
         )
     }
 }
