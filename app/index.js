@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import './index.css'
 import Popular from './components/Popular'
 import Battle from './components/Battle'
+import {ThemeProvider} from './contexts/theme'
 
 // Component
 //  State
@@ -15,6 +16,13 @@ class App extends React.Component {
 
         this.state = {
             battle: true,
+            theme: 'light',
+            toggleTheme: () => {
+                this.setState(({ theme }) => ({
+                    theme: theme === 'light' ? 'theme' : 'dark'
+                }))
+            }
+
         }
 
         this.handleClick = this.handleClick.bind(this);
@@ -31,12 +39,14 @@ class App extends React.Component {
         const {battle} = this.state;
 
         return (
-            <React.Fragment>
-                <button className = "btn btn-clear" onClick = {this.handleClick}>Switch</button>
-                <div className = 'container'> 
-                    {battle === true ?<Battle /> :<Popular />}
-                </div>
-            </React.Fragment>
+            <ThemeProvider value = {this.state}>
+                <React.Fragment>
+                    <button className = "btn btn-clear" onClick = {this.handleClick}>Switch</button>
+                    <div className = 'container'> 
+                        {battle === true ?<Battle /> :<Popular />}
+                    </div>
+                </React.Fragment>
+            </ThemeProvider>
         )
     }
 }
