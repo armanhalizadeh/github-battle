@@ -4,6 +4,7 @@ import './index.css'
 import Popular from './components/Popular'
 import Battle from './components/Battle'
 import {ThemeProvider} from './contexts/theme'
+import Nav from './components/Nav'
 
 // Component
 //  State
@@ -19,7 +20,7 @@ class App extends React.Component {
             theme: 'light',
             toggleTheme: () => {
                 this.setState(({ theme }) => ({
-                    theme: theme === 'light' ? 'theme' : 'dark'
+                    theme: theme === 'light' ? 'dark' : 'light'
                 }))
             }
 
@@ -40,12 +41,12 @@ class App extends React.Component {
 
         return (
             <ThemeProvider value = {this.state}>
-                <React.Fragment>
-                    <button className = "btn btn-clear" onClick = {this.handleClick}>Switch</button>
+                <div className = {this.state.theme}>
                     <div className = 'container'> 
+                        <Nav />
                         {battle === true ?<Battle /> :<Popular />}
                     </div>
-                </React.Fragment>
+                </div>
             </ThemeProvider>
         )
     }
