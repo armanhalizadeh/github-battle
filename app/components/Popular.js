@@ -5,29 +5,34 @@ import { FaUser, FaStar, FaCodeBranch, FaExclamationTriangle } from 'react-icons
 import Card from './Card'
 import Loading from './Loading'
 import Tooltip from './Tooltip'
+import {ThemeConsumer} from '../contexts/theme'
 
 //functional compononent that renders the navbar
 function LanguagesNav ({ selected, onUpdateLanguage}) {
     const languages =['All', 'Javascript', 'Ruby', 'Java', 'CSS', 'Python'];
         
     return (
-        <ul className='flex-center'>
-            {languages.map((lang) =>{
-                return(
-                    <li key = {lang}>
-                        <button 
-                            className= 'btn-clear nav-link' 
-                            style = {lang === selected //selected lang shows coral
-                                ? {color: 'coral'}
-                                : {color: 'black'}}
-                            onClick = {() => onUpdateLanguage(lang)}
-                        >
-                            {lang}
-                        </button>
-                    </li>
-                )
-            })}
-        </ul>
+        <ThemeConsumer>
+            {({theme}) => (
+                <ul className='flex-center'>
+                    {languages.map((lang) =>{
+                        return(
+                            <li key = {lang}>
+                                <button 
+                                    className= 'btn-clear nav-link' 
+                                    style = {lang === selected //selected lang shows coral
+                                        ? {color: 'coral'}
+                                        : {color: `${theme === 'dark' ? 'grey' : 'black'}`}}
+                                    onClick = {() => onUpdateLanguage(lang)}
+                                >
+                                    {lang}
+                                </button>
+                            </li>
+                        )
+                    })}
+                </ul>
+            )}
+        </ThemeConsumer>
     )
 }
 

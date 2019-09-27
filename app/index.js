@@ -16,7 +16,7 @@ class App extends React.Component {
         super(props)
 
         this.state = {
-            battle: true,
+            battle: false,
             theme: 'light',
             toggleTheme: () => {
                 this.setState(({ theme }) => ({
