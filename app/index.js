@@ -5,6 +5,7 @@ import Popular from './components/Popular'
 import Battle from './components/Battle'
 import {ThemeProvider} from './contexts/theme'
 import Nav from './components/Nav'
+import {BrowserRouter as Router, Route} from 'react-router-dom'
 
 // Component
 //  State
@@ -16,7 +17,6 @@ class App extends React.Component {
         super(props)
 
         this.state = {
-            battle: false,
             theme: 'light',
             toggleTheme: () => {
                 this.setState(({ theme }) => ({
@@ -25,29 +25,22 @@ class App extends React.Component {
             }
 
         }
-
-        this.handleClick = this.handleClick.bind(this);
-    }
-
-    handleClick() {
-        this.setState(({battle}) => ({
-            battle: !battle,
-        }))
     }
 
     //returns description of what the UI will look like
     render() {
-        const {battle} = this.state;
-
         return (
-            <ThemeProvider value = {this.state}>
-                <div className = {this.state.theme}>
-                    <div className = 'container'> 
-                        <Nav />
-                        {battle === true ?<Battle /> :<Popular />}
+            <Router>
+                <ThemeProvider value = {this.state}>
+                    <div className = {this.state.theme}>
+                        <div className = 'container'> 
+                            <Nav />
+                            <Route exact path='/' component={Popular} />
+                            <Route path='/battle' component={Battle} />
+                        </div>
                     </div>
-                </div>
-            </ThemeProvider>
+                </ThemeProvider>
+            </Router>
         )
     }
 }
