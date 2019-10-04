@@ -14,17 +14,12 @@ import Results from './components/Results'
 //  UI
 
 class App extends React.Component {
-    constructor (props) {
-        super(props)
-
-        this.state = {
-            theme: 'light',
-            toggleTheme: () => {
-                this.setState(({ theme }) => ({
-                    theme: theme === 'light' ? 'dark' : 'light'
-                }))
-            }
-
+    state = {
+        theme: 'light',
+        toggleTheme: () => {
+            this.setState(({ theme }) => ({
+                theme: theme === 'light' ? 'dark' : 'light'
+            }))
         }
     }
 
@@ -40,7 +35,7 @@ class App extends React.Component {
                                 <Route exact path='/' component={Popular} />
                                 <Route exact path='/battle' component={Battle} />
                                 <Route path='/battle/results' component={Results} />
-                                <Route render={()=> <h1>404 😢</h1>} />
+                                <Route render={()=> <h1>404 Page not found 😢</h1>} />
                             </Switch>
                         </div>
                     </div>

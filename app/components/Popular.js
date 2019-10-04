@@ -92,28 +92,21 @@ ReposGrid.propTypes = {
 }
 
 export default class Popular extends React.Component {
-    constructor(props){
-        super(props);
+    /* selected language: stores current language
+    repos: object to hold git repos for each language. allows caching 
+    error: stores error object */
+    state = {
+        selectedLanguage: 'All',
+        repos: {},
+        error: null,
+    };
 
-        /* selected language: stores current language
-            repos: object to hold git repos for each language. allows caching 
-            error: stores error object */
-        this.state = {
-            selectedLanguage: 'All',
-            repos: {},
-            error: null,
-        };
-
-        this.navLanguageHandleClick = this.navLanguageHandleClick.bind(this);
-        this.isLoading = this.isLoading.bind(this);
-    }
-
-    componentDidMount() {
+    componentDidMount = () => {
         this.navLanguageHandleClick(this.state.selectedLanguage)
     }
 
     //updates the current language state
-    navLanguageHandleClick(newLanguage) {
+    navLanguageHandleClick = (newLanguage) => {
         this.setState({
             selectedLanguage: newLanguage,
             error: null,
@@ -140,7 +133,7 @@ export default class Popular extends React.Component {
     }
 
     //checked by if no data has been returned or no error thrown
-    isLoading() {
+    isLoading = () => {
         const { selectedLanguage, repos, error } = this.state;
 
         return !repos[selectedLanguage] && error === null
