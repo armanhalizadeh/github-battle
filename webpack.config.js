@@ -14,7 +14,7 @@ module.exports = {
             {test: /\.css$/, use: ['style-loader', 'css-loader']}
         ]
     },
-    mode: 'development',
+    mode: 'production', //process.env.REACT_APP_ENVIRONMENT === 'production' ? 'production' : 'development',
     plugins: [
         new HtmlWebpackPlugin({
             template: 'app/index.html'
