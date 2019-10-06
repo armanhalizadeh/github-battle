@@ -102,7 +102,7 @@ export default class Results extends React.Component {
                     </Card>
                         
                     <Card
-                        header = {winner.score === loser.score ? 'Tie' : 'Winner'}
+                        header = {winner.score === loser.score ? 'Tie' : 'Loser'}
                         subheader = {`Score: ${loser.score.toLocaleString()}`}
                         avatar = {loser.profile.avatar_url}
                         name = {loser.profile.login}
